@@ -77,3 +77,14 @@ The Power BI file is available in:
 
 ```text
 powerbi/dashboard.pbix
+
+---
+
+## 🛠️ Technologies
+
+- PostgreSQL
+- Talend Open Studio 7.3.1
+- SQL
+- OLAP
+- Power BI
+- DAX
