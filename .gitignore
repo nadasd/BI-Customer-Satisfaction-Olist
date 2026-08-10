@@ -24,3 +24,6 @@ Dataset/*.csv
 Dataset/*.xlsx
 # Microsoft Word temporary files
 ~$*.docx
+
+# Microsoft Word temporary files
+~$*.docx
