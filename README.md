@@ -72,7 +72,6 @@ The pipeline performs:
 
 The Talend project is available in:
 
-```text
 etl/
 └── talend_project/
     └── PROJET_BI_SATISFACTION.zip
