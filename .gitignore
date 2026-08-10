@@ -1,0 +1,24 @@
+# Windows
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# IDE / editors
+.vscode/
+.idea/
+
+# Power BI temporary files
+*.pbi
+*.pbit.tmp
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Talend generated / temporary files
+.metadata/
+temp/
+target/
+# Raw dataset
+Dataset/*.csv
+Dataset/*.xlsx
