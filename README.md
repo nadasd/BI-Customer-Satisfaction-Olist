@@ -75,12 +75,15 @@ The final results are presented through an interactive **Power BI dashboard** co
 
 The Power BI file is available in:
 
-```text
-powerbi/dashboard.pbix
-🛠️ Technologies
-PostgreSQL
-Talend Open Studio 7.3.1
-SQL
-OLAP
-Power BI
-DAX
+`powerbi/dashboard.pbix`
+
+---
+
+## 🛠️ Technologies
+
+- **PostgreSQL**
+- **Talend Open Studio 7.3.1**
+- **SQL**
+- **OLAP**
+- **Power BI**
+- **DAX**
