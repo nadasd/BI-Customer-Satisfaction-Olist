@@ -6,19 +6,17 @@ The project transforms raw e-commerce data into a decision-oriented **Data Mart*
 
 ---
 
-## 🎯 Project Objectives
+## 🎯 Objectives
 
-The main objective of this project is to analyze customer satisfaction and provide insights that can support business decision-making.
+The main objective is to analyze customer satisfaction and identify factors that influence customer experience.
 
-The project addresses questions such as:
+The project focuses on questions such as:
 
 - What is the overall level of customer satisfaction?
-- How does satisfaction evolve over time?
-- Which product categories receive the lowest ratings?
+- Which product categories and sellers receive the lowest ratings?
 - Do delivery delays affect customer satisfaction?
-- Which regions have the lowest satisfaction?
-- Which sellers are associated with low ratings?
-- What is the distribution of positive, negative, and neutral reviews?
+- How does satisfaction vary across regions?
+- How does customer satisfaction evolve over time?
 
 ---
 
@@ -26,22 +24,7 @@ The project addresses questions such as:
 
 The project uses a **star schema** centered around the `F_AVIS` fact table.
 
-### Fact Table
-
-`F_AVIS` contains review-related measures and foreign keys connecting the fact table to the dimensions.
-
-Main measures include:
-
-- `review_score`
-- `review_count`
-- `days_to_review`
-- `comment_length`
-- `delivery_delay_days`
-- `has_comment`
-- `is_positive_review`
-- `is_negative_review`
-
-### Dimensions
+The main dimensions are:
 
 | Dimension | Description |
 |---|---|
@@ -57,22 +40,40 @@ Main measures include:
 
 ---
 
-## 🔄 ETL — Talend
+## 🔄 ETL & Data Processing
 
-The ETL process was implemented using **Talend Open Studio 7.3.1**.
+The ETL process was implemented using **Talend Open Studio 7.3.1** and **PostgreSQL**.
 
-The pipeline performs:
+The process includes:
 
-1. Extraction of the Olist CSV files
-2. Loading into PostgreSQL staging tables
-3. Data transformation and mapping
-4. Loading of the dimensions
+1. Extraction of the Olist source data
+2. Loading into staging tables
+3. Data transformation and integration
+4. Loading of the Data Mart dimensions
 5. Loading of the `F_AVIS` fact table
-6. Data validation
+6. Data validation and analysis
 
-The Talend project is available in:
+The project also includes a **Slowly Changing Dimension Type 2 (SCD2)** implementation for historical data management.
+
+---
+
+## 📊 Power BI Dashboard
+
+The final results are presented through an interactive **Power BI dashboard** covering global KPIs, product and seller analysis, and geographic analysis.
+
+### Global Overview
+
+![Global Overview](captures/powerbi/powerbi_page1_vue_globale.png)
+
+### Product & Seller Analysis
+
+![Product & Seller Analysis](captures/powerbi/powerbi_page2_produit_vendeur.png)
+
+### Geographic Analysis
+
+![Geographic Analysis](captures/powerbi/powerbi_page3_geographique.png)
+
+The Power BI file is available in:
 
 ```text
-etl/
-└── talend_project/
-    └── PROJET_BI_SATISFACTION.zip
+powerbi/dashboard.pbix
