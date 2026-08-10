@@ -22,3 +22,5 @@ target/
 # Raw dataset
 Dataset/*.csv
 Dataset/*.xlsx
+# Microsoft Word temporary files
+~$*.docx
