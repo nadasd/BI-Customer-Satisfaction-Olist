@@ -76,3 +76,33 @@ The Talend project is available in:
 etl/
 └── talend_project/
     └── PROJET_BI_SATISFACTION.zip
+## 📈 SQL & OLAP Analysis
+
+The project includes SQL queries and OLAP analyses to explore customer satisfaction from different perspectives.
+
+The analyses cover:
+
+- Global satisfaction KPIs
+- Review score distribution
+- Satisfaction over time
+- Satisfaction by product category
+- Satisfaction by seller
+- Satisfaction by customer region
+- Delivery performance and delays
+- Customer satisfaction analysis
+
+The project demonstrates several OLAP operations:
+
+- **Drill-down**
+- **Roll-up**
+- **Slice**
+- **Dice**
+
+The SQL scripts are available in:
+
+```text
+sql/
+├── create_tables.sql
+├── load_data.sql
+├── queries.sql
+└── scd2_demo.sql
