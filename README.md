@@ -78,8 +78,6 @@ The Power BI file is available in:
 ```text
 powerbi/dashboard.pbix
 
----
-
 ## 🛠️ Technologies
 
 - PostgreSQL
