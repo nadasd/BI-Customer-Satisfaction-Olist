@@ -1,0 +1,15 @@
+-- Authoritative measures for the corrected model.
+Nombre avis := COUNTROWS('f_review')
+Note moyenne := ROUND(AVERAGE('f_review'[review_score]), 2)
+Taux avis positifs := ROUND(100 * AVERAGEX('f_review', INT('f_review'[is_positive_review])), 2)
+Taux avis negatifs := ROUND(100 * AVERAGEX('f_review', INT('f_review'[is_negative_review])), 2)
+Commandes eligibles := CALCULATE(COUNTROWS('f_order_delivery'), 'f_order_delivery'[is_delivery_eligible] = TRUE())
+Commandes en retard := CALCULATE(COUNTROWS('f_order_delivery'), 'f_order_delivery'[is_late] = TRUE())
+Taux retard livraison := ROUND(100 * DIVIDE([Commandes en retard], [Commandes eligibles]), 2)
+Ecart signe moyen livraison := CALCULATE(AVERAGE('f_order_delivery'[delivery_variance_days]), 'f_order_delivery'[is_delivery_eligible] = TRUE())
+Retard moyen commandes en retard := CALCULATE(AVERAGE('f_order_delivery'[delivery_variance_days]), 'f_order_delivery'[is_late] = TRUE())
+Volume avis alloue := SUM('bridge_review_order_item'[allocation_weight])
+Note moyenne allouee := DIVIDE(
+ SUMX('bridge_review_order_item', RELATED('f_review'[review_score]) * 'bridge_review_order_item'[allocation_weight]),
+ [Volume avis alloue]
+)
