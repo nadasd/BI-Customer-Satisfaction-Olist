@@ -1,7 +1,7 @@
 DO $$
 DECLARE
  sellers BIGINT; customers BIGINT; orders BIGINT; items BIGINT; reviews BIGINT; bridge_rows BIGINT;
- stage_review_events BIGINT; avg_score NUMERIC; positive_rate NUMERIC; late_rate NUMERIC;
+ stage_review_events BIGINT; distinct_review_ids BIGINT; unbridged_reviews BIGINT; avg_score NUMERIC; positive_rate NUMERIC; late_rate NUMERIC;
 BEGIN
  SELECT COUNT(*) INTO sellers FROM d_vendeur;
  SELECT COUNT(*) INTO customers FROM d_client WHERE is_current;
@@ -22,10 +22,15 @@ BEGIN
  IF orders<>99441 THEN RAISE EXCEPTION 'Olist order baseline regression: %, expected 99441',orders; END IF;
  IF items<>112650 THEN RAISE EXCEPTION 'Olist item baseline regression: %, expected 112650',items; END IF;
  IF reviews<>stage_review_events THEN RAISE EXCEPTION 'Review grain mismatch: fact %, staging events %',reviews,stage_review_events; END IF;
- IF reviews<>98465 THEN RAISE EXCEPTION 'Olist review-event baseline regression: %, expected 98465',reviews; END IF;
+ IF reviews<>99224 THEN RAISE EXCEPTION 'Olist review-event baseline regression: %, expected 99224',reviews; END IF;
+ SELECT COUNT(DISTINCT review_id) INTO distinct_review_ids FROM f_review;
+ IF distinct_review_ids<>98410 THEN RAISE EXCEPTION 'Olist distinct review-id regression: %, expected 98410',distinct_review_ids; END IF;
  IF bridge_rows<>(SELECT COUNT(*) FROM f_review r JOIN f_order_item i ON i.order_id=r.order_id)
  THEN RAISE EXCEPTION 'Review-item bridge coverage regression'; END IF;
  IF bridge_rows<>112372 THEN RAISE EXCEPTION 'Olist bridge baseline regression: %, expected 112372',bridge_rows; END IF;
+ SELECT COUNT(*) INTO unbridged_reviews FROM f_review r
+ WHERE NOT EXISTS(SELECT 1 FROM bridge_review_order_item b WHERE b.review_key=r.review_key);
+ IF unbridged_reviews<>759 THEN RAISE EXCEPTION 'Reviews without order items regression: %, expected 759',unbridged_reviews; END IF;
  IF EXISTS(SELECT 1 FROM bridge_review_order_item GROUP BY review_key HAVING ABS(SUM(allocation_weight)-1)>0.000000001)
  THEN RAISE EXCEPTION 'Allocation weights do not sum to one'; END IF;
  IF EXISTS(SELECT 1 FROM d_client GROUP BY customer_unique_id HAVING COUNT(*) FILTER(WHERE is_current)<>1)

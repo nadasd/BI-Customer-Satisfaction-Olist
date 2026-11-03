@@ -17,7 +17,7 @@ $dataset=(Resolve-Path -LiteralPath $DatasetPath -ErrorAction Stop).Path
 foreach($spec in $specs){
  $path=Join-Path $dataset $spec.File
  if(-not (Test-Path -LiteralPath $path)){throw "Missing Olist file: $path"}
- $header=(Get-Content -LiteralPath $path -TotalCount 1).TrimStart([char]0xFEFF)
+ $header=(Get-Content -LiteralPath $path -TotalCount 1).TrimStart([char]0xFEFF).Replace('"','')
  if($header -ne $spec.Header){throw "Unexpected header in $($spec.File): $header"}
 }
 $sqlRoot=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
