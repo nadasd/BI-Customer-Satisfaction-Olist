@@ -6,7 +6,9 @@ $zip=[IO.Compression.ZipFile]::OpenRead((Resolve-Path -LiteralPath $ArchivePath)
 try {
  $processEntries=@($zip.Entries | Where-Object { $_.FullName -match '[\\/]process[\\/].+\.item$' })
  $connectionEntries=@($zip.Entries | Where-Object { $_.FullName -match '[\\/]metadata[\\/]connections[\\/].+\.item$' })
+ $generatedEntries=@($zip.Entries | Where-Object { $_.FullName -match '[\\/](poms|temp)[\\/]' })
  if($processEntries.Count -ne 11){ throw "Expected 11 Talend process files, got $($processEntries.Count)" }
+ if($generatedEntries.Count -ne 0){ throw 'Generated Talend poms/temp content must not be committed in the archive' }
  $allText=New-Object Text.StringBuilder
  foreach($entry in @($processEntries)+@($connectionEntries)){
   $reader=New-Object IO.StreamReader($entry.Open())
